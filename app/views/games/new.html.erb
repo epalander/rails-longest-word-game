@@ -1,12 +1,21 @@
 <!-- display a new random grid of letters and a form -->
 <h1>New Game</h1>
 
-<%= p @letters %><br>
-<br>
-<p>Type your answer here:</p>
-<form action="/score" method="post">
-  <input type="text" name="word" placeholder="Enter your word">
-  <input type="submit" value="Submit!">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-</form>
+<ul class="letters">
+  <% @letters.each do |letter| %>
+    <li><%= letter %></li>
+  <% end %>
+</ul>
 
+<p class="form-prefix">What is the longest word you can find?</p>
+
+<form action="/score" method="POST" class="form-inline">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <%= hidden_field_tag :letters, @letters %>
+  <div class="input-group input-group">
+    <input type="text" name="word" placeholder="Enter your word" class="form-control">
+    <span class="input-group-btn">
+      <input type="submit" value="Play" class="btn btn-default">
+    </span>
+  </div>
+</form>
